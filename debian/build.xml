@@ -1,0 +1,316 @@
+<?xml version="1.0"?>
+<!-- polyglot-maven 0.8-tobrien-SNAPSHOT build file by gil -->
+<project name="polyglot-maven" default="dist" basedir="..">
+      
+   <property name="build.dir"            value="build"/>
+   <property name="dist.dir"             value="dist"/>
+      
+   <property name="version"              value="0.8"/>
+      
+   <property name="common.dir"           value="${basedir}/pmaven-common"/>
+   <property name="common.src.dir"       value="${common.dir}/src/main/java"/>
+   <property name="common.build.dir"     value="${build.dir}/common"/>
+   <property name="common.jar"           value="${dist.dir}/pmaven-common-${version}.jar"/>
+      
+   <property name="groovy.dir"           value="${basedir}/pmaven-groovy"/>
+   <property name="groovy.src.dir"       value="${groovy.dir}/src/main"/>
+   <property name="groovy.doc.src.dir"   value="${groovy.dir}/src/main/java"/>
+   <property name="groovy.build.dir"     value="${build.dir}/groovy"/>
+   <property name="groovy.jar"           value="${dist.dir}/pmaven-groovy-${version}.jar"/>
+   
+   <!--property name="clojure.dir"           value="${basedir}/pmaven-clojure"/>
+   <property name="clojure.src.dir"       value="${clojure.dir}/src/main"/>
+   <property name="clojure.build.dir"     value="${build.dir}/clojure"/>
+   <property name="clojure.jar"           value="${dist.dir}/pmaven-clojure-${version}.jar"/-->
+
+   <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+   </target>
+      
+   <!-- ,build.clojure -->
+   <target name="build" 
+      depends="build.common,build.groovy" description="Compile the sources">
+   </target>
+      
+   <target name="dist" depends="init,build,javadoc"
+      description="generate the distribution" >
+   </target>
+      
+   <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+   </target>
+   
+   <path id="groovyc.classpath">
+    <fileset dir="/usr/share/java" includes="commons-cli.jar"/>
+    <fileset dir="/usr/share/java" includes="groovy-all.jar"/>
+   </path>
+   
+   <!--path id="clojurec.classpath">
+    <fileset dir="/usr/share/java" includes="clojure.jar"/>
+    <fileset dir="/usr/share/java" includes="clojure-ant-tasks.jar"/>
+   </path-->
+   
+   <!--path id="clojure.classpath">
+    <path refid="clojurec.classpath"/>
+    <path refid="common.classpath"/>
+    <fileset dir="/usr/share/java" includes="ant.jar"/>
+    <fileset dir="/usr/share/java" includes="guava.jar"/>
+    <fileset dir="${dist.dir}" includes="pmaven-common-${version}.jar"/>
+   </path-->
+   
+   <path id="javadoc.classpath">
+    <path refid="groovy.classpath"/>
+    <fileset dir="${dist.dir}" includes="pmaven-groovy-${version}.jar"/>
+   </path>
+      
+   <path id="common.classpath">
+    <path refid="groovyc.classpath"/>
+    <pathelement location="${core.build.dir}/**"/>
+    <fileset dir="/usr/share/java" includes="maven-core-3.x.jar"/>
+    <fileset dir="/usr/share/java" includes="maven-builder-support-3.x.jar"/>
+    <fileset dir="/usr/share/java" includes="maven-embedder-3.x.jar"/>
+    <fileset dir="/usr/share/java" includes="maven-model-3.x.jar"/>
+    <fileset dir="/usr/share/java" includes="maven-model-builder-3.x.jar"/>
+    <fileset dir="/usr/share/java" includes="plexus-classworlds.jar"/>
+    <fileset dir="/usr/share/java" includes="plexus-component-annotations.jar"/>
+    <fileset dir="/usr/share/java" includes="plexus-container-default.jar"/>
+    <fileset dir="/usr/share/java" includes="plexus-utils2.jar"/>
+   </path>
+      
+   <path id="groovy.classpath">
+    <path refid="common.classpath"/>
+    <pathelement location="${common.build.dir}/**"/>
+    <fileset dir="${dist.dir}" includes="pmaven-common-${version}.jar"/>
+    <fileset dir="/usr/share/java" includes="commons-logging.jar"/>
+   </path>
+      
+   <!--target name="build.clojure" description="Build Polyglot Maven clojure Module">
+    <mkdir dir="${dist.dir}"/>
+    <compile-clojure
+      buildclasspath="clojure.classpath"
+      dirsrc="${clojure.src.dir}"
+      destfile="${clojure.build.dir}"/>
+      
+    <jar-simple
+      destfile="${clojure.jar}"
+      basedir="${clojure.build.dir}"
+      includes="**/*"/>
+   </target-->
+   
+   <target name="build.common" description="Build Polyglot Maven Common Module">
+    <compile-javac
+      buildclasspath="common.classpath"
+      dirsrc="${common.src.dir}"
+      destfile="${common.build.dir}"/>
+      
+    <jar-simple
+      destfile="${common.jar}"
+      basedir="${common.build.dir}"
+      includes="**/*"/>
+   </target>
+      
+   <target name="build.groovy" description="Build Polyglot Maven Groovy Module">
+    <compile-groovy
+      buildclasspath="groovy.classpath"
+      dirsrc="${groovy.src.dir}"
+      destfile="${groovy.build.dir}"/>
+      
+    <jar-simple
+      destfile="${groovy.jar}"
+      basedir="${groovy.build.dir}"
+      includes="**/*"/>
+   </target>
+      
+   <!--taskdef name="clojure-compile" classname="com.ubermensch.ant.clojure.CompileTask" classpathref="clojurec.classpath" />
+   <macrodef name="compile-clojure">
+    <attribute name="destfile"/>
+    <attribute name="dirsrc"/>
+    <attribute name="excludes" default=""/>
+    <attribute name="includes" default=""/>
+    <attribute name="buildclasspath" default=""/>
+    <sequential>
+    <mkdir dir="@{destfile}"/>
+      <javac
+	srcdir="@{dirsrc}/java"
+        destdir="@{destfile}"
+        classpathref="@{buildclasspath}"
+        source="1.5" target="1.5" debug="on">
+      </javac>
+      <clojure-compile compilepath="@{destfile}">
+        <classpath>
+	  <pathelement location="@{dirsrc}/clojure" />
+          <pathelement location="@{destfile}" />
+          <path refid="@{buildclasspath}" />
+        </classpath>
+        <namespace>org.sonatype.maven.polyglot.clojure.dsl.pretty-printer</namespace>
+        <namespace>org.sonatype.maven.polyglot.clojure.dsl.util</namespace>
+        <namespace>org.sonatype.maven.polyglot.clojure.dsl.reader</namespace>
+        <namespace>org.sonatype.maven.polyglot.clojure.dsl.leiningen</namespace>
+        <namespace>org.sonatype.maven.polyglot.clojure.dsl.writer</namespace>
+        <namespace>org.sonatype.maven.polyglot.clojure.dsl.debug</namespace>
+        <fileset dir="@{dirsrc}/clojure" includes="**/*.clj" />
+      </clojure-compile>
+    </sequential>
+    
+      <property
+    name="sources.dir"
+    value="${base.dir}/sources"
+     />
+  <property
+    name="build.dir"
+    value="${base.dir}/build"
+     />
+  <target name="init">
+    <property
+      name="scala-library.jar"
+      value="${scala.home}/lib/scala-library.jar"
+       />
+    <path id="build.classpath">
+      <pathelement location="${scala-library.jar}"   />
+      <<pathelement location="${your.path}"   />>
+      <pathelement location="${build.dir}"   />
+    </path>
+    <taskdef resource="scala/tools/ant/antlib.xml">
+      <classpath>
+        <pathelement location="${scala.home}/lib/scala-compiler.jar"   />
+        <pathelement location="${scala-library.jar}"   />
+      </classpath>
+    </taskdef>
+  </target>
+
+  <target name="build" depends="init">
+    <mkdir dir="${build.dir}"   />
+    <scalac srcdir="${sources.dir}"
+            destdir="${build.dir}"
+            classpathref="build.classpath">
+      <include name="compile/**/*.scala"   />
+      <exclude name="forget/**/*.scala"   />
+    </scalac>
+  </target>
+    <target name="docs" depends="init">
+    <mkdir dir="${docs.dir}"   />
+    <scaladoc
+      srcdir="${sources.dir}"
+      destdir="${docs.dir}"
+      deprecation="yes" unchecked="yes"
+      windowtitle="Polyglot Maven Scala"
+      doctitle="&lt;div&gt;liftweb 0.1.0&lt;/div&gt;"
+      classpathref="build.classpath">
+        <include name="compile/**/*.scala"   />
+    </scaladoc>
+  </target>
+  
+   </macrodef-->
+   
+   <!--macrodef name="compile-clojure">
+    <attribute name="destfile"/>
+    <attribute name="dirsrc"/>
+    <attribute name="excludes" default=""/>
+    <attribute name="includes" default=""/>
+    <attribute name="buildclasspath" default=""/>
+    <sequential>
+    <mkdir dir="@{destfile}"/>
+      <javac
+	srcdir="@{dirsrc}/java"
+        destdir="@{destfile}"
+        classpathref="@{buildclasspath}"
+        source="1.5" target="1.5" debug="on">
+      </javac>
+    <java classname="clojure.lang.Compile"
+          classpathref="clojure.classpath"
+          fork="true"
+          failonerror="true">
+        <sysproperty key="clojure.compile.path"
+                     value="@{destfile}"/>
+        <classpath>
+	  <pathelement location="@{dirsrc}/clojure" />
+          <pathelement location="@{destfile}" />
+          <fileset dir="/usr/share/java" includes="clojure.jar"/>
+          <path refid="@{buildclasspath}" />
+        </classpath>
+        <arg value="org.sonatype.maven.polyglot.clojure.dsl.pretty-printer"/>
+        <arg value="org.sonatype.maven.polyglot.clojure.dsl.util"/>
+        <arg value="org.sonatype.maven.polyglot.clojure.dsl.reader"/>
+        <arg value="org.sonatype.maven.polyglot.clojure.dsl.leiningen"/>
+        <arg value="org.sonatype.maven.polyglot.clojure.dsl.writer"/>
+        <arg value="org.sonatype.maven.polyglot.clojure.dsl.debug"/>
+      </java>
+    </sequential>
+   </macrodef-->
+   
+   <macrodef name="compile-javac">
+    <attribute name="destfile"/>
+    <attribute name="dirsrc"/>
+    <attribute name="excludes" default=""/>
+    <attribute name="includes" default=""/>
+    <attribute name="buildclasspath" default=""/>
+    <sequential>
+    <mkdir dir="@{destfile}"/>
+      <javac
+        srcdir="@{dirsrc}"
+        destdir="@{destfile}"
+        classpathref="@{buildclasspath}"
+        source="1.5" target="1.5" debug="on">
+      </javac>
+    </sequential>
+   </macrodef>
+      
+   <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="groovyc.classpath"/>
+   <macrodef name="compile-groovy">
+    <attribute name="destfile"/>
+    <attribute name="dirsrc"/>
+    <attribute name="excludes" default=""/>
+    <attribute name="includes" default=""/>
+    <attribute name="buildclasspath" default=""/>
+    <sequential>
+    <mkdir dir="@{destfile}"/>
+      <groovyc
+        srcdir="@{dirsrc}"
+        destdir="@{destfile}"
+        classpathref="@{buildclasspath}"
+        sourcepath="">
+        <javac source="1.8" target="1.8" debug="on"/>
+      </groovyc>
+    </sequential>
+   </macrodef>
+      
+   <macrodef name="jar-simple">
+    <attribute name="destfile"/>
+    <attribute name="basedir"/>
+    <attribute name="excludes" default=""/>
+    <attribute name="includes" default="**"/>
+    <attribute name="resources" default=""/>
+    <attribute name="paramvalue" default=""/>
+    <sequential>
+      <jar destfile="@{destfile}"
+        basedir="@{basedir}"
+        includes="@{includes}">
+      </jar>
+    </sequential>
+  </macrodef>
+      
+  <target name="javadoc">
+    <mkdir dir="${dist.dir}/api"/>
+    <tstamp>
+      <format property="year" pattern="yyyy" />
+    </tstamp>
+    <javadoc
+      destdir="${dist.dir}/api"
+      sourcepath="${common.src.dir}:${groovy.doc.src.dir}"
+      access="protected"
+      old="false"
+      verbose="false"
+      version="true"
+      use="true"
+      author="true"
+      windowtitle="Polyglot Maven ${version}">
+      <classpath refid="javadoc.classpath"/>
+      <doctitle><![CDATA[<h2>Polyglot Maven ${version}</h2>]]></doctitle>
+      <group title="Polyglot Maven Common" packages="org.sonatype.maven.polyglot.*"/>
+      <group title="Polyglot Maven Groovy" packages="org.sonatype.maven.polyglot.groovy.*"/>
+    </javadoc>
+  </target>
+      
+</project>

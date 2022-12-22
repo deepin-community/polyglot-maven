@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.sonatype.maven.dependencydsl/src-gen"
+    editDirectory="/org.sonatype.maven.dependencydsl.edit/src" editorDirectory="/org.sonatype.maven.dependencydsl.editor/src"
+    modelPluginID="org.sonatype.maven.dependencydsl" forceOverwrite="true" modelName="DependencyDsl"
+    updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.sonatype.maven.dependencydsl.edit"
+    editorPluginID="org.sonatype.maven.dependencydsl.editor">
+  <genPackages prefix="DependencyDsl" basePackage="org.sonatype.maven" disposableProviderFactory="true"
+      ecorePackage="DependencyDsl.ecore#/">
+    <genClasses ecoreClass="DependencyDsl.ecore#//Project">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Project/groupId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Project/artifactId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Project/version"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Project/dependencies"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Project/mappedDependencies"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Project/plugins"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Project/extensions"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//GA">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//GA/groupId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//GA/artifactId"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Dependency">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Dependency/groupId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Dependency/artifactId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Dependency/version"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Dependency/exclusions"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//MappedDependency">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//MappedDependency/groupId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//MappedDependency/artifactId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//MappedDependency/version"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Plugin">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Plugin/groupId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Plugin/artifactId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Plugin/version"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Extension">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Extension/groupId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Extension/artifactId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Extension/version"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Model/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Model/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Import/importURI"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Type">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Type/name"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//SimpleType"/>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Entity">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Entity/extends"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Entity/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="DependencyDsl.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Property/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DependencyDsl.ecore#//Property/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DependencyDsl.ecore#//Property/many"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

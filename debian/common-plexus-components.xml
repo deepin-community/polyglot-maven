@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-set>
+  <components>
+    <component>
+      <role>org.sonatype.maven.polyglot.execute.ExecuteManager</role>
+      <role-hint>default</role-hint>
+      <implementation>org.sonatype.maven.polyglot.execute.ExecuteManagerImpl</implementation>
+      <instantiation-strategy>singleton</instantiation-strategy>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.Logger</role>
+          <role-hint />
+          <field-name>log</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.apache.maven.ArtifactFilterManagerDelegate</role>
+      <role-hint>polyglot</role-hint>
+      <implementation>org.sonatype.maven.polyglot.PolyglotArtifactFilterDelegate</implementation>
+      <isolated-realm>false</isolated-realm>
+    </component>
+    <component>
+      <role>org.sonatype.maven.polyglot.PolyglotModelManager</role>
+      <role-hint>default</role-hint>
+      <implementation>org.sonatype.maven.polyglot.PolyglotModelManager</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.Logger</role>
+          <role-hint />
+          <field-name>log</field-name>
+        </requirement>
+        <requirement>
+          <role>org.sonatype.maven.polyglot.mapping.Mapping</role>
+          <field-name>mappings</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.apache.maven.model.building.ModelProcessor</role>
+      <role-hint>polyglot</role-hint>
+      <implementation>org.sonatype.maven.polyglot.PolyglotModelProcessor</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.Logger</role>
+          <role-hint />
+          <field-name>log</field-name>
+        </requirement>
+        <requirement>
+          <role>org.sonatype.maven.polyglot.PolyglotModelManager</role>
+          <role-hint />
+          <field-name>manager</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.apache.maven.classrealm.ClassRealmManagerDelegate</role>
+      <role-hint>polyglot</role-hint>
+      <implementation>org.sonatype.maven.polyglot.PolyglotRealmDelegate</implementation>
+      <isolated-realm>false</isolated-realm>
+    </component>
+    <component>
+      <role>org.sonatype.maven.polyglot.mapping.Mapping</role>
+      <role-hint>xml</role-hint>
+      <implementation>org.sonatype.maven.polyglot.mapping.XmlMapping</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.PlexusContainer</role>
+          <role-hint />
+          <field-name>container</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.sonatype.maven.polyglot.PolyglotModelTranslator</role>
+      <role-hint>default</role-hint>
+      <implementation>org.sonatype.maven.polyglot.PolyglotModelTranslator</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.Logger</role>
+          <role-hint />
+          <field-name>log</field-name>
+        </requirement>
+        <requirement>
+          <role>org.sonatype.maven.polyglot.PolyglotModelManager</role>
+          <role-hint />
+          <field-name>manager</field-name>
+        </requirement>
+      </requirements>
+    </component>
+  </components>
+</component-set>

@@ -1,0 +1,149 @@
+grammar org.sonatype.maven.DependencyDsl with org.eclipse.xtext.common.Terminals
+
+generate dependencyDsl "http://www.sonatype.org/maven/DependencyDsl"
+
+Project :
+  'project' '{'
+    'groupId'    ':' groupId=GroupId
+    'artifactId' ':' artifactId=ArtifactId
+    'version'    ':' version=Version
+    
+    (
+    'dependencies' '{'  
+    (dependencies+=Dependency)*
+    '}'
+    )?	
+
+    (
+    'mappedDependencies' '{'  
+    (mappedDependencies+=MappedDependency)*
+    '}'
+    )?	
+    
+    (
+    'plugins' '{'  
+    (plugins+=Plugin)*
+    '}'
+    )?
+    
+    (
+    'extensions' '{'  
+    (extensions+=Extension)*
+    '}'
+    )?	
+    	
+'}'
+;
+
+GA :
+  'groupId'    ':' groupId=GroupId ','
+  'artifactId' ':' artifactId=ArtifactId
+;
+	
+Dependency :
+  //
+  //
+  //
+  'groupId'    ':' groupId=GroupId ','
+  'artifactId' ':' artifactId=ArtifactId ','
+  'version'    ':' version=Version
+  
+  //
+  //
+  //
+  (',' 'path' | 'url' )?
+  (',' 'scope' )?
+  (',' 'classifier' )?
+  (',' 'type' )?
+  
+  //
+  //
+  //
+  (
+  ','
+  'exclusions' '{'  
+  (exclusions+=GA)*
+  '}'
+  )?  
+;	
+
+MappedDependency :
+  //
+  //
+  //
+  ('path' | 'url')  ':' STRING
+  ( ',' 'exclude'    ':' STRING  )?
+  ( ',' 'groupId'    ':' groupId=GroupId  )?
+  ( ',' 'artifactId' ':' artifactId=ArtifactId  )?
+  ( ',' 'version'    ':' version=Version )?
+;	
+
+	
+Plugin :
+  //
+  //
+  //
+  'groupId'    ':' groupId=GroupId ','
+  'artifactId' ':' artifactId=ArtifactId ','
+  'version'    ':' version=Version
+  ( ',' 'phase'      ':' ID )?  
+  (',' 'extensionId' ':' ID )?
+  //
+  //  
+  (
+  ','
+  'execute' '{'
+     (STRING)*  
+  '}'
+  )?    
+;	
+
+Extension :
+  'groupId'     ':' groupId=GroupId ','
+  'artifactId'  ':' artifactId=ArtifactId ','
+  'version'     ':' version=Version ','
+  'extensionId' ':' ID ','     
+  'execute' '{'
+     (STRING)*  
+  '}'
+;	
+
+	
+Regex :
+  ( ('.' | '-' | '*')? ID ('.' | '-' | '*')? )*
+;
+	
+GroupId : 
+  ( ID ('.' | '-')? )*
+;
+
+ArtifactId :
+  ( ID ('.' | '-')? )*  
+;
+
+Version :
+  INT ( '.' INT )*
+;	
+
+
+Model :
+	(imports+=Import)*
+	(elements+=Type)*;
+	
+Import :
+	'import' importURI=STRING;
+	
+Type:
+	SimpleType | Entity;
+	
+SimpleType:
+	'type' name=ID;
+	
+Entity :
+	'entity' name=ID ('extends' extends=[Entity])? '{'
+		properties+=Property*
+	'}';
+
+Property:
+	'property' name=ID ':' type=[Type] (many?='[]')?;
+	

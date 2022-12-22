@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+export JAVA_HOME := /usr/lib/jvm/default-java
+export ANT_ARGS := -f debian/build.xml
+VERSION=$(shell dpkg-parsechangelog | sed -n '/^Version/s/Version: \(.*\)-[^-]*$$/\1/p')
+
+%:
+	dh $@ --buildsystem=ant --with maven_repo_helper
+
+override_dh_auto_build:
+	mkdir -p build/common/META-INF/plexus
+	cp -p debian/common-plexus-components.xml build/common/META-INF/plexus/components.xml
+	mkdir -p build/groovy/META-INF/plexus
+	cp -p debian/groovy-plexus-components.xml build/groovy/META-INF/plexus/components.xml
+	dh_auto_build
+
+get-orig-source:
+	git clone git://github.com/tobrien/polyglot-maven.git polyglot-maven-$(VERSION)
+	# Remove files under "Sonatype Maven Shell (TM) Commercial Version"
+	rm -rf polyglot-maven-$(VERSION)/pmaven-commands polyglot-maven-$(VERSION)/.git
+	tar czf ../polyglot-maven_$(VERSION).orig.tar.gz polyglot-maven-$(VERSION)
+	rm -rf polyglot-maven-$(VERSION)

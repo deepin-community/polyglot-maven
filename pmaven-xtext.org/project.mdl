@@ -1,0 +1,15 @@
+project {
+  
+  groupId: org.sonatype.polyglot
+  artifactId: polyglot-maven
+  version: 1.0
+	
+  dependencies:
+    groupId: org.apache.maven, artifactId: maven-core, version: 3.0
+    groupId: org.apache.maven, artifactId: maven-model, version: 3.0
+    groupId: org.apache.maven, artifactId: maven-embedder, version: 3.0
+    groupId: org.apache.maven, artifactId: maven-foo, version: 3.0
+    groupId: org.apache.maven, artifactId: maven-bar, version: 3.0
+    
+    // Decorate the lifecycle
+}

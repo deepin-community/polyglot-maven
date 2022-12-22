@@ -1,0 +1,90 @@
+polyglot-maven (0.8~tobrien+git20120905-10) unstable; urgency=medium
+
+  * Team upload.
+  * Update Standards-Version to 4.5.0
+  * Use debhelper-compat.
+    - Update compat level to 13.
+  * Add Rules-Requires-Root: no.
+  * Mark Vcs to salsa.
+  * Use generic version in maven.rules.
+
+ -- Sudip Mukherjee <sudipm.mukherjee@gmail.com>  Fri, 08 May 2020 21:36:24 +0100
+
+polyglot-maven (0.8~tobrien+git20120905-9) unstable; urgency=medium
+
+  * Team upload.
+  * Fixed the build failure with Java 9 (Closes: #893410)
+  * Standards-Version updated to 4.1.3
+  * Switch to debhelper level 11
+  * Fixed the watch file
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Fri, 30 Mar 2018 17:48:09 +0200
+
+polyglot-maven (0.8~tobrien+git20120905-8) unstable; urgency=medium
+
+  * Team upload.
+  * Depend on libplexus-classworlds-java instead of libplexus-classworlds-java
+  * Use the versionless jars of plexus-component-annotations
+    and plexus-container-default
+  * Standards-Version updated to 4.1.1
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Tue, 14 Nov 2017 12:25:43 +0100
+
+polyglot-maven (0.8~tobrien+git20120905-7) unstable; urgency=medium
+
+  * Team upload.
+  * Depend on libplexus-component-metadata-java instead of
+    libplexus-containers1.5-java
+  * Standards-Version updated to 4.1.0
+  * Switch to debhelper level 10
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Wed, 06 Sep 2017 00:51:49 +0200
+
+polyglot-maven (0.8~tobrien+git20120905-6) unstable; urgency=medium
+
+  * Team upload.
+  * Depend on groovy instead of groovy2
+  * Standards-Version updated to 3.9.8 (no changes)
+  * Use a secure Vcs-Git URL
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Wed, 11 May 2016 09:17:40 +0200
+
+polyglot-maven (0.8~tobrien+git20120905-5) unstable; urgency=medium
+
+  * Team upload.
+  * Transition to Groovy 2
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Fri, 20 Nov 2015 13:31:27 +0100
+
+polyglot-maven (0.8~tobrien+git20120905-4) unstable; urgency=medium
+
+  * Team upload.
+  * Fixed the build failure with Maven 3.3.3 (Closes: #796454)
+  * Removed the unused build dependency on libasm3-java (Closes: #800865)
+  * Build depend on libmaven3-core-java instead of maven
+  * Standards-Version updated to 3.9.6 (no changes)
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Fri, 30 Oct 2015 12:53:42 +0100
+
+polyglot-maven (0.8~tobrien+git20120905-3) unstable; urgency=low
+
+  * Fix "FTBFS: dh_auto_clean: ant clean failed to to execute: No such
+    file or directory", actually add Build-Depends on ant (Closes:
+    #713268).
+
+ -- Damien Raude-Morvan <drazzib@debian.org>  Thu, 15 Aug 2013 23:45:06 +0200
+
+polyglot-maven (0.8~tobrien+git20120905-2) unstable; urgency=low
+
+  * Upload to unstable.
+  * d/control: Bump Standards-Version to 3.9.4 (no changes needed).
+  * d/control: Add strict B-D on maven >= 3.0.4-5 to get Maven artifacts
+    installed in /usr/share/maven-repo.
+
+ -- Damien Raude-Morvan <drazzib@debian.org>  Mon, 06 May 2013 01:37:46 +0200
+
+polyglot-maven (0.8~tobrien+git20120905-1) experimental; urgency=low
+
+  * Initial release (Closes: #686795)
+
+ -- Damien Raude-Morvan <drazzib@debian.org>  Wed, 05 Sep 2012 22:25:23 +0200

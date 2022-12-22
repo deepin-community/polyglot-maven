@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.model.io.ModelWriter</role>
+      <role-hint>groovy</role-hint>
+      <implementation>org.sonatype.maven.polyglot.groovy.GroovyModelWriter</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.Logger</role>
+          <role-hint />
+          <field-name>log</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.sonatype.maven.polyglot.mapping.Mapping</role>
+      <role-hint>groovy</role-hint>
+      <implementation>org.sonatype.maven.polyglot.groovy.GroovyMapping</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.PlexusContainer</role>
+          <role-hint />
+          <field-name>container</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.sonatype.maven.polyglot.groovy.builder.ModelBuilder</role>
+      <role-hint>default</role-hint>
+      <implementation>org.sonatype.maven.polyglot.groovy.builder.ModelBuilder</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.Logger</role>
+          <role-hint />
+          <field-name>log</field-name>
+        </requirement>
+        <requirement>
+          <role>org.sonatype.maven.polyglot.execute.ExecuteManager</role>
+          <role-hint />
+          <field-name>executeManager</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.apache.maven.model.io.ModelReader</role>
+      <role-hint>groovy</role-hint>
+      <implementation>org.sonatype.maven.polyglot.groovy.GroovyModelReader</implementation>
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.Logger</role>
+          <role-hint />
+          <field-name>log</field-name>
+        </requirement>
+        <requirement>
+          <role>org.sonatype.maven.polyglot.groovy.builder.ModelBuilder</role>
+          <role-hint />
+          <field-name>builder</field-name>
+        </requirement>
+        <requirement>
+          <role>org.sonatype.maven.polyglot.execute.ExecuteManager</role>
+          <role-hint />
+          <field-name>executeManager</field-name>
+        </requirement>
+      </requirements>
+    </component>
+  </components>
+</component-set>
